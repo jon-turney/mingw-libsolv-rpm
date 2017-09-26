@@ -17,12 +17,14 @@ BuildRequires:  cmake
 
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
+BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-binutils
 BuildRequires:  mingw32-libgnurx-static
 BuildRequires:  mingw32-zlib
 
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
+BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw64-libgnurx-static
 BuildRequires:  mingw64-zlib
