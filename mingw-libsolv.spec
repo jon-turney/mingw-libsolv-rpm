@@ -39,17 +39,35 @@ library is based on two major, but independent, blocks:
 - Using satisfiability, a well known and researched topic, for
   resolving package dependencies.
 
+# Win32
 %package -n mingw32-libsolv
 Summary:        MinGW compiled libsolv
 
 %description -n mingw32-libsolv
 MinGW compiled libsolv for the Win32 target.
 
+%package -n mingw32-libsolv-static
+Summary:        MinGW libsolv (static)
+Group:          Development/Libraries
+Requires:       mingw32-libsolv = %{version}-%{release}
+
+%description -n mingw32-libsolv-static
+MingW compiled static libsolv for the Win32 target.
+
+# Win64
 %package -n mingw64-libsolv
 Summary:        MinGW compiled libsolv
 
 %description -n mingw64-libsolv
 MinGW compiled libsolv for the Win64 target.
+
+%package -n mingw64-libsolv-static
+Summary:        MinGW libsolv (static)
+Group:          Development/Libraries
+Requires:       mingw64-libsolv = %{version}-%{release}
+
+%description -n mingw64-libsolv-static
+MingW compiled static libsolv for the Win64 target.
 
 %{?mingw_debug_package}
 
@@ -80,14 +98,22 @@ mv $RPM_BUILD_ROOT%{mingw64_prefix}/lib64 $RPM_BUILD_ROOT%{mingw64_libdir}
 
 %files -n mingw32-libsolv
 %{mingw32_bindir}/*.dll
-%{mingw32_libdir}/*.a
+%{mingw32_libdir}/*.dll.a
 %{mingw32_libdir}/pkgconfig/*.pc
 %{mingw32_datadir}/cmake/Modules/*.cmake
 %{mingw32_includedir}/solv/*.h
 
+%files -n mingw32-libsolv-static
+%{mingw32_libdir}/*.a
+%exclude %{mingw32_libdir}/*.dll.a
+
 %files -n mingw64-libsolv
 %{mingw64_bindir}/*.dll
-%{mingw64_libdir}/*.a
+%{mingw64_libdir}/*.dll.a
 %{mingw64_libdir}/pkgconfig/*.pc
 %{mingw64_datadir}/cmake/Modules/*.cmake
 %{mingw64_includedir}/solv/*.h
+
+%files -n mingw64-libsolv-static
+%{mingw64_libdir}/*.a
+%exclude %{mingw64_libdir}/*.dll.a
