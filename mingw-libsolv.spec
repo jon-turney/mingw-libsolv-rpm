@@ -7,7 +7,7 @@ Summary:        Cross-compiled package dependency solver
 
 License:        BSD
 URL:            https://github.com/openSUSE/libsolv
-Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}.tar.gz
 
 Patch0:         0001-Fix-building-on-MinGW-w64.patch
 
