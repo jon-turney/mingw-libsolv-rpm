@@ -1,7 +1,7 @@
 %{?mingw_package_header}
 
 Name:           mingw-libsolv
-Version:        0.6.29
+Version:        0.7.22
 Release:        1%{?dist}
 Summary:        Cross-compiled package dependency solver
 
@@ -19,14 +19,12 @@ BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-gcc-c++
 BuildRequires:  mingw32-binutils
-BuildRequires:  mingw32-libgnurx
 BuildRequires:  mingw32-zlib
 
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-gcc-c++
 BuildRequires:  mingw64-binutils
-BuildRequires:  mingw64-libgnurx
 BuildRequires:  mingw64-zlib
 
 %description
@@ -77,8 +75,12 @@ MingW compiled static libsolv for the Win64 target.
 %build
 export MINGW32_CFLAGS="%{mingw32_cflags} -fno-PIC -D__USE_MINGW_ANSI_STDIO=1"
 export MINGW64_CFLAGS="%{mingw64_cflags} -fno-PIC -D__USE_MINGW_ANSI_STDIO=1"
+export MINGW64_LDFLAGS="%{mingw64_ldflags} -Wl,--export-all-symbols"
+export MINGW32_LDFLAGS="%{mingw32_ldflags} -Wl,--export-all-symbols"
+
 %mingw_cmake                                     \
   -DENABLE_STATIC=ON                             \
+  -DWITHOUT_COOKIEOPEN=ON                        \
   ..
 %mingw_make
 
@@ -92,9 +94,6 @@ rm -f $RPM_BUILD_ROOT%{mingw64_bindir}/*.{exe,sh}
 # Remove manpages
 rm -fr $RPM_BUILD_ROOT%{mingw32_mandir}
 rm -fr $RPM_BUILD_ROOT%{mingw64_mandir}
-
-# libsolv insists on building 64-bit libs into lib64
-mv $RPM_BUILD_ROOT%{mingw64_prefix}/lib64 $RPM_BUILD_ROOT%{mingw64_libdir}
 
 %files -n mingw32-libsolv
 %{mingw32_bindir}/*.dll
