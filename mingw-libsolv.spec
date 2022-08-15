@@ -2,7 +2,7 @@
 
 Name:           mingw-libsolv
 Version:        0.7.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-compiled package dependency solver
 
 License:        BSD
@@ -10,6 +10,7 @@ URL:            https://github.com/openSUSE/libsolv
 Source:         %{url}/archive/%{version}.tar.gz
 
 Patch0:         0001-Fix-building-on-MinGW-w64.patch
+Patch1:         0002-Ensure-duplinvolvedmap_all-is-reset-when-a-solver-is.patch
 
 BuildArch:      noarch
 

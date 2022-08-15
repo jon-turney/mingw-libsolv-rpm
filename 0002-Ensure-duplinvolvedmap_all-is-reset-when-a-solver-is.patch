@@ -1,0 +1,27 @@
+From 480123038537b89bcfca4a8ac9b40271eb7f5d5b Mon Sep 17 00:00:00 2001
+From: Jon Turney <jon.turney@dronecode.org.uk>
+Date: Sun, 14 Aug 2022 18:45:20 +0100
+Subject: [PATCH] Ensure duplinvolvedmap_all is reset when a solver is reused
+
+Otherwise this can cause solver_addduprules() to be called even though
+needduprules is 0, which will crash because solver_createdupmaps()
+hasn't been called.
+---
+ src/solver.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/solver.c b/src/solver.c
+index 28341d6d..e3779e23 100644
+--- a/src/solver.c
++++ b/src/solver.c
+@@ -3533,6 +3533,7 @@ solver_solve(Solver *solv, Queue *job)
+   map_zerosize(&solv->bestupdatemap);
+   solv->fixmap_all = 0;
+   map_zerosize(&solv->fixmap);
++  solv->dupinvolvedmap_all = 0;
+   map_zerosize(&solv->dupmap);
+   map_zerosize(&solv->dupinvolvedmap);
+   solv->process_orphans = 0;
+-- 
+2.37.2
+
